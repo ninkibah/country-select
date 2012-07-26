@@ -4,7 +4,13 @@ Provides a simple helper to get an HTML select list of countries.  The list of c
 
 Users are strongly advised to evaluate the suitability of this list given their user base.
 
+This project was forked to have a version of the gem which would use 2 letter ISO-3166 country codes, and allow
+for internationalization. The translations can be set up with
+
 ## Latest Changes
+**1.2.0**
+
+- Converted COUNTRIES to a hash from default English name to ISO-3166 2 letter code.
 
 **1.1.1**
 

@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
 	s.email					= 'jamesds2007@gmail.com'
 	s.files					= [ 'lib/country-select.rb',
  											'README.md',
-											'MIT-LICENSE'	]
+											'MIT-LICENSE',
+                      'country-select.gemspec']
 	s.homepage			= 'http://github.com/ninkibah/country-select'
 end

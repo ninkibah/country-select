@@ -5,7 +5,8 @@ Provides a simple helper to get an HTML select list of countries.  The list of c
 Users are strongly advised to evaluate the suitability of this list given their user base.
 
 This project was forked to have a version of the gem which would use 2 letter ISO-3166 country codes, and allow
-for internationalization. The translations can be set up with
+for internationalization. The translations can be set up under the "countries" key with the
+ISO-3166 code as the sub-key. Thus: countries.US is the translation key for the United States of America.
 
 ## Latest Changes
 **1.2.0**

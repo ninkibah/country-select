@@ -11,14 +11,16 @@ module ActionView
       # that they will be listed above the rest of the (long) list.
       #
       # NOTE: Only the option tags are returned, you have to wrap this call in a regular HTML select tag.
+      # The priority_countries should be a list of ISO-3166 country codes.
       def country_options_for_select(selected = nil, priority_countries = nil)
         country_options = ""
 
         if priority_countries
-          if (unlisted = priority_countries - COUNTRIES).any?
+          if (unlisted = priority_countries - COUNTRIES.values).any?
             raise RuntimeError.new("Supplied priority countries are not in the main list: #{unlisted}")
           end
-          country_options += options_for_select(translated_countries(priority_countries).zip(priority_countries), selected)
+          translated_priorty_countries = translated_countries(priority_countries.map {|code| [COUNTRIES.key(code), code]})
+          country_options += options_for_select(translated_priorty_countries.zip(priority_countries), selected)
           country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
 
           # prevents selected from being included twice in the HTML which causes
@@ -33,7 +35,7 @@ module ActionView
       end
 
       def translated_countries(countries)
-        countries.map { |country, code| I18n.translate("countries.#{code}") || country }
+        countries.map { |country, code| I18n.translate("countries.#{code}", :default => country) }
       end
 
       # All the countries included in the country_options output.

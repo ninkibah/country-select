@@ -7,8 +7,19 @@ Users are strongly advised to evaluate the suitability of this list given their 
 This project was forked to have a version of the gem which would use 2 letter ISO-3166 country codes, and allow
 for internationalization. The translations can be set up under the "countries" key with the
 ISO-3166 code as the sub-key. Thus: countries.US is the translation key for the United States of America.
+The translated country names are then sorted alphabetically.
 
 ## Latest Changes
+**1.2.3**
+
+- Translated names are now sorted alphabetically.
+- Code is a little cleaner and more efficient (no need for zipping)
+
+**1.2.2**
+
+-- Fixed translated countries missing translation. It now defaults to the English name.
+-- Fixed handling of priority countries.
+
 **1.2.0**
 
 - Converted COUNTRIES to a hash from default English name to ISO-3166 2 letter code.

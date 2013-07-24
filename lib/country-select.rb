@@ -19,8 +19,8 @@ module ActionView
           if (unlisted = priority_countries - COUNTRIES.values).any?
             raise RuntimeError.new("Supplied priority countries are not in the main list: #{unlisted}")
           end
-          translated_priorty_countries = translated_countries(priority_countries.map {|code| [COUNTRIES.key(code), code]})
-          country_options += options_for_select(translated_priorty_countries.zip(priority_countries), selected)
+          translated_priority_countries = translated_countries(priority_countries.map {|code| [COUNTRIES.key(code), code]})
+          country_options += options_for_select(translated_priority_countries, selected)
           country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
 
           # prevents selected from being included twice in the HTML which causes
@@ -31,11 +31,13 @@ module ActionView
 
         country_options = country_options.html_safe if country_options.respond_to?(:html_safe)
 
-        return country_options + options_for_select(translated_countries(COUNTRIES).zip(COUNTRIES.values), selected)
+        country_options + options_for_select(translated_countries(COUNTRIES).sort, selected)
       end
 
+      # @param [Hash] country_hash A Hash from country english name to ISO Code.
+      # @return [Array] Array of elements, translated country name, and ISO code
       def translated_countries(countries)
-        countries.map { |country, code| I18n.translate("countries.#{code}", :default => country) }
+        countries.map { |country, code| [I18n.translate("countries.#{code}", :default => country), code] }
       end
 
       # All the countries included in the country_options output.

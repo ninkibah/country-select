@@ -10,6 +10,9 @@ ISO-3166 code as the sub-key. Thus: countries.US is the translation key for the 
 The translated country names are then sorted alphabetically.
 
 ## Latest Changes
+**1.2.4**
+- When the ffi-locale gem is installed, then the countries are sorted using the proper collation.
+
 **1.2.3**
 
 - Translated names are now sorted alphabetically.

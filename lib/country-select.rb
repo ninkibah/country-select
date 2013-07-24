@@ -31,13 +31,24 @@ module ActionView
 
         country_options = country_options.html_safe if country_options.respond_to?(:html_safe)
 
-        country_options + options_for_select(translated_countries(COUNTRIES).sort, selected)
+        country_options + options_for_select(collated_sort(translated_countries(COUNTRIES)), selected)
       end
 
       # @param [Hash] country_hash A Hash from country english name to ISO Code.
       # @return [Array] Array of elements, translated country name, and ISO code
       def translated_countries(countries)
         countries.map { |country, code| [I18n.translate("countries.#{code}", :default => country), code] }
+      end
+
+      if defined?(FFILocale)
+        def collated_sort(arr)
+          FFILocale::setlocale FFILocale::LC_COLLATE, "#{I18n.locale}.UTF8"
+          arr.sort { |a, b| FFILocale::strcoll a[0], b[0] }
+        end
+      else
+        def collated_sort(arr)
+          arr.sort
+        end
       end
 
       # All the countries included in the country_options output.

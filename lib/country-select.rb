@@ -40,13 +40,12 @@ module ActionView
         countries.map { |country, code| [I18n.translate("countries.#{code}", :default => country), code] }
       end
 
-      if defined?(FFILocale)
-        def collated_sort(arr)
+
+      def collated_sort(arr)
+        if defined?(FFILocale)
           FFILocale::setlocale FFILocale::LC_COLLATE, "#{I18n.locale}.UTF8"
           arr.sort { |a, b| FFILocale::strcoll a[0], b[0] }
-        end
-      else
-        def collated_sort(arr)
+        else
           arr.sort
         end
       end
